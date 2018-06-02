@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>pigLatin Algorithm</title>
+  <style>
+    input {
+      font-size: 2em;
+      margin: 10px 1px 0;
+    }
+  </style>
+</head>
+<body>
+<script>
+function translate(originalWords) {
+  const vowels = ["a", "e", "i", "o", "u"];
+  const consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
+  let arrayWords = originalWords.split("");
+  console.log(arrayWords);
+  let vowelStartArray = [];
+  let consonantStartArray = [];
+  let consonantContinueArray = [];
+// Find indexes for the start of each new word; 0 is automatically included
+  let beginningWords = (index) => {
+    startWordArray = [0];
+    if (arrayWords[index - 1] == " ") {
+      console.log('beginningWords: true; ' + ' index: ' + index);
+      startWordArray.push(index);
+      console.log(startWordArray);
+      return startWordArray;
+    }
+  }
+/*
+  let testWord = (char, prevIndex) => {
+    let myArray = [];
+//    console.log('prevIndex = ' + prevIndex);
+//    myArray[prevIndex] = char;
+    myArray[prevIndex] = char;
+//    console.log('myArray from testWord == ' + myArray[prevIndex]);
+  }
+*/
+
+// Determine the indexes for the start of each new word
+  let newWordBegins = arrayWords.map(checkWord => { // this format allows me to have multiple functions use map() with a single request
+    return beginningWords(arrayWords.indexOf(checkWord)); // returns array with the indexes for the start of each new word
+  })
+/*
+// Find index of subClass array within newWordBegins array; holds the indexes for the start of each new word
+    const findSubClass = newWordBegins.findIndex(subClass => {
+      console.log(typeof subClass);
+      if (typeof subClass === 'object') {
+        return subClass.indexOf();
+      }
+    })
+*/
+// run pigLatin rules for the predetermined words based on saved indexes
+// run pigLatin rules for the predetermined words based on saved indexes
+let pigLatinRules = (newWordBegins) => { //determine character and save the array index to local variable
+
+  if (consonants.includes(char)) {
+//      consonantStartArray.push(index == 0 ? char : "x");
+    index == 0 ? consonantStartArray.push(char) : consonantContinueArray.push(char);
+    console.log('consonantStartArray == ' + consonantStartArray);
+    console.log('consonantContinueArray == ' + consonantContinueArray);
+  } else if (vowels.includes(char)) {
+    vowelStartArray.push(char);
+    console.log('vowelStartArray == ' + vowelStartArray);
+  }
+}
+// begin process of creating a new array based on pigLatin rules
+
+//  let tempArray = arrayWords.map(searchIndex => charSearch(searchIndex, arrayWords.indexOf(searchIndex))) //traverse entire array
+/*
+  for (counter = 0; counter < arrayWords.length; counter++) {
+    let tempArray = [];
+    let blankSpaceLoc;
+  }
+  */
+
+//  console.log('array result = ' + consonantStartArray);
+//  console.log('array result = ' + vowelStartArray);
+}
+  console.log(translate("pig earth"));
+</script>
+</body>
+</html>
