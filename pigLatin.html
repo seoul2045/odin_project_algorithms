@@ -41,7 +41,8 @@ function translate(originalWords) {
 */
 
 // Determine the indexes for the start of each new word
-  let newWordBegins = arrayWords.map(checkChar => beginningWords(arrayWords.indexOf(checkChar))); // implict return of array with the indexes for the start of each new word
+//  let newWordBegins = arrayWords.map(checkChar => beginningWords(arrayWords.indexOf(checkChar))); // implict return of array with the indexes for the start of each new word
+  let newWordBegins = arrayWords.forEach((character, index) => beginningWords(index)); // implict return of array with the indexes for the start of each new word
 /*
 // Find index of subClass array within newWordBegins array; holds the indexes for the start of each new word
     const findSubClass = newWordBegins.findIndex(subClass => {
@@ -53,18 +54,25 @@ function translate(originalWords) {
 */
 // run pigLatin rules for the predetermined words based on saved indexes
 // run pigLatin rules for the predetermined words based on saved indexes
-let pigLatinRules = newWordBegins.forEach(character => {
-  console.log('value of character: ' + character);
-  if (consonants.includes(character)) {
-    //      consonantStartArray.push(index == 0 ? char : "x");
-    index == 0 ? consonantStartArray.push(character) : consonantContinueArray.push(character);
-    console.log('consonantStartArray == ' + consonantStartArray);
-    console.log('consonantContinueArray == ' + consonantContinueArray);
-  } else if (vowels.includes(character)) {
-    vowelStartArray.push(character);
-    console.log('vowelStartArray == ' + vowelStartArray);
-  }//determine character and save the array index to local variable
+
+let pigLatinRules = newWordBegins.forEach(start => {
+  if (start != undefined) {
+    console.log('value of start index: ' + start);
+    for (counter = 0; arrayWords[counter] != " "; counter++) { // proceeding loop will run once for each array item in start
+      if (consonants.includes(arrayWords[counter])) {
+        //      consonantStartArray.push(index == 0 ? char : "x");
+        console.log('start value: ' + start);
+        start[counter] == 0 ? consonantStartArray.push(arrayWords[counter]) : consonantContinueArray.push(arrayWords[counter]);
+        console.log('consonantStartArray == ' + consonantStartArray);
+        console.log('consonantContinueArray == ' + consonantContinueArray);
+      } else if (vowels.includes(arrayWords[counter])) {
+        vowelStartArray.push(arrayWords[counter]);
+        console.log('vowelStartArray == ' + vowelStartArray);
+      }//determine character and save the array index to local variable
+    }
+  }
 })
+
 // begin process of creating a new array based on pigLatin rules
 
 //  let tempArray = arrayWords.map(searchIndex => charSearch(searchIndex, arrayWords.indexOf(searchIndex))) //traverse entire array
