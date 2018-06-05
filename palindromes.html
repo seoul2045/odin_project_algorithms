@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Palindromes algorithm</title>
+  <style>
+    input {
+      font-size: 2em;
+      margin: 10px 1px 0;
+    }
+  </style>
+</head>
+<body>
+<script>
+var palindromes = function(words) {
+  let delChar = /[^a-z]/gi; //targets all characters not from a-z globally and in a case insensitive manner via Regular Expression
+  let reducedWords = words.replace(delChar, "").toLowerCase();
+  let length = reducedWords.length;
+  let wordArray = [];
+  for (y = 0; y < length; y++) {
+    wordArray.push(reducedWords[y]);
+    }
+  return (wordArray.toString() == wordArray.reverse().toString());
+}
+</script>
+</body>
+</html>
