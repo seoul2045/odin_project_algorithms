@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>snakeCase Algorithm</title>
+  <style>
+    input {
+      font-size: 2em;
+      margin: 10px 1px 0;
+    }
+  </style>
+</head>
+<body>
+<script>
+var snakeCase = function(words) { // my solution
+  let newWord;
+  if (words.search(/[ ]/g) == -1 && //checks for no empty spaces
+      words.search(/[A-Z]/) != -1 && //checks for at least one capital letter
+      words.search(/[^a-z]/ig) == -1) { //checks there are no non-letter characters
+    let capPosition = words.match(/[A-Z]/)
+    newWord = words.replace(/[A-Z]/, "_" + capPosition);
+  } else {
+    let reducedWords = words.replace(/[^a-z]/ig, "_"); //replace all non-letter characters case insensitive global with an underscore
+    let reducedAgainWords = reducedWords.replace(/[^a-z]+/ig, "_"); //use only a single underscore by using quantifier + that contains 1 or more underscores
+    newWord = reducedAgainWords.replace(/_\b/, ""); //the metacharacter \b finds a match at the beginning/end of a word, so this emlimantes undercores from start of sentence and end
+  }
+  return(newWord.toLowerCase());
+}
+
+const snakeCase2 = function(string) { // odin project solution
+  // wtf case
+  string = string.replace(/\.\./g, " "); // using \.\. is same as ".."
+  console.log(string);
+
+  // this splits up camelcase IF there are no spaces in the word
+  if (string.indexOf(" ") < 0) {
+    string = string.replace(/([A-Z])/g, " $1");
+    console.log(string);
+  }
+
+  return string
+    .trim()
+    .toLowerCase()
+    .replace(/[,\?\.]/g, "")
+    .replace(/\-/g, " ")
+    .split(" ")
+    .join("_");
+};
+
+</script>
+</body>
+</html>
