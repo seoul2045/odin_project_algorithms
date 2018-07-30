@@ -42,7 +42,11 @@ function translate(originalWords) {
 
 // Determine the indexes for the start of each new word
 //  let newWordBegins = arrayWords.map(checkChar => beginningWords(arrayWords.indexOf(checkChar))); // implict return of array with the indexes for the start of each new word
-  let newWordBegins = arrayWords.forEach((character, index) => beginningWords(index)); // implict return of array with the indexes for the start of each new word
+  let startOfWord = arrayWords.forEach((character, index) => {
+    if (beginningWords(index) != undefined) {
+      return console.log(beginningWords(index)); // return array with the indexes for the start of each new word
+    }
+  })
 /*
 // Find index of subClass array within newWordBegins array; holds the indexes for the start of each new word
     const findSubClass = newWordBegins.findIndex(subClass => {
@@ -54,8 +58,8 @@ function translate(originalWords) {
 */
 // run pigLatin rules for the predetermined words based on saved indexes
 // run pigLatin rules for the predetermined words based on saved indexes
-
-let pigLatinRules = newWordBegins.forEach(start => {
+if (startOfWord != undefined) {
+let pigLatinRules = startOfWord.forEach((start) => {
   if (start != undefined) {
     console.log('value of start index: ' + start);
     for (counter = 0; arrayWords[counter] != " "; counter++) { // proceeding loop will run once for each array item in start
@@ -72,7 +76,9 @@ let pigLatinRules = newWordBegins.forEach(start => {
     }
   }
 })
-
+} else {
+  console.log(startOfWord);
+}
 // begin process of creating a new array based on pigLatin rules
 
 //  let tempArray = arrayWords.map(searchIndex => charSearch(searchIndex, arrayWords.indexOf(searchIndex))) //traverse entire array
