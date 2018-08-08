@@ -51,26 +51,41 @@
 
 // Function read words and reorganize new string
   let beginningWords = wordArray => {
+    console.log("beginningWords function called!");
     let counter = 0;
     wordArray.forEach(function(character, index) {
-    let startWordArray = [0];
-    let locateWordsObj = {
-      start:[]
-    };
-    if (index == 0) {
-      if (vowels.includes(startWordArray[0])) {
-        endOfWord(index); // call function to find end of word and return the index
-      } else if (consonants.includes(startWordArray[0]))
-        endOfWord(index); // call function to find end of word and return the index
-    } else if (index > 0) {
+      console.log(index)  ;
+      let startWordArray = [0];
+      let locateWordsObj = {
+        start:[]
+      };
+      if (index == 0) {
+        console.log("index == 0");
+        if (vowels.includes(wordArray[0])) {
+          let endIndex = endOfWord(index); // function returns index for end of a word
+          console.log("endIndex value " + endIndex);
+          wordArray[endIndex].push("ay");
+          console.log(wordArray);
+        } else if (consonants.includes(wordArray[0])) {
+          endOfWord(index);  // function returns index for end of a word
+      } else if (index > 0) {
 
+      }
+    }
+  })
+}
+// Function find index for end of a word
+  let endOfWord = startOfWord => {
+    originalWordsArray.forEach(function(character, index) {
+      if (index > startOfWord &&
+          originalWordsArray[index] == " ") {
+            return (index - 1)// save the index position of the last character of a single word
+    } else {
+        return (originalWordsArray.length - 1); // save the index position of the last character of a single word
     }
     })
   }
-// Function to locate the end of a word so the characters can be added
-  let endOfWord = startWord => {
 
-  }
   //     if (wordArray[index] == " ") {
   //       console.log('beginningWords: true; ' + ' index: ' + (index + 1));
   //       startWordArray.push(index + 1); //add 1 to index to push first character after blank space
@@ -155,7 +170,7 @@ let runRules = index => {
 //  console.log('array result = ' + consonantStartArray);
 //  console.log('array result = ' + vowelStartArray);
 //  console.log(translate("pig earth"));
-  translate("pig earth ham");
+  translate("eat pig earth");
 </script>
 </body>
 </html>
