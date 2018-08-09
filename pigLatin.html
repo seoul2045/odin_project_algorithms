@@ -54,7 +54,6 @@
     console.log("beginningWords function called!");
     let counter = 0;
     wordArray.forEach(function(character, index) {
-      console.log(index)  ;
       let startWordArray = [0];
       let locateWordsObj = {
         start:[]
@@ -62,9 +61,10 @@
       if (index == 0) {
         console.log("index == 0");
         if (vowels.includes(wordArray[0])) {
+          console.log(endOfWord(0));
           let endIndex = endOfWord(index); // function returns index for end of a word
-          console.log("endIndex value " + endIndex);
-          wordArray[endIndex].push("ay");
+          console.log("endIndex value: " + endIndex);
+          wordArray.splice(endIndex, 0, "a", "y");
           console.log(wordArray);
         } else if (consonants.includes(wordArray[0])) {
           endOfWord(index);  // function returns index for end of a word
@@ -76,14 +76,23 @@
 }
 // Function find index for end of a word
   let endOfWord = startOfWord => {
+    let returnThis;
+    console.log("endOfWord function called!")
     originalWordsArray.forEach(function(character, index) {
+      console.log("endOfWord forEach index value: " + index);
       if (index > startOfWord &&
           originalWordsArray[index] == " ") {
-            return (index - 1)// save the index position of the last character of a single word
-    } else {
-        return (originalWordsArray.length - 1); // save the index position of the last character of a single word
+            console.log("endOfWord value: " + (index -1));
+            returnThis = (index - 1);
+            return returnThis; // save the index position of the last character of a single word
+    } else if (index == (originalWordsArray.length - 1)) {
+        console.log("endOfWord else value: " + (index -1));
+        returnThis = (originalWordsArray.length - 1);
+        return returnThis; // save the index position of the last character of a single word
     }
+      return returnThis;
     })
+    return returnThis;
   }
 
   //     if (wordArray[index] == " ") {
