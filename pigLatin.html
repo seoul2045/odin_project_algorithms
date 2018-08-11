@@ -76,24 +76,31 @@
 }
 // Function find index for end of a word
   let endOfWord = startOfWord => {
-    let returnThis;
+    let endOfWordIndex = startOfWord;
     console.log("endOfWord function called!")
-    originalWordsArray.forEach(function(character, index) {
-      console.log("endOfWord forEach index value: " + index);
-      if (index > startOfWord &&
-          originalWordsArray[index] == " ") {
-            console.log("endOfWord value: " + (index -1));
-            returnThis = (index - 1);
-            return returnThis; // save the index position of the last character of a single word
-    } else if (index == (originalWordsArray.length - 1)) {
-        console.log("endOfWord else value: " + (index -1));
-        returnThis = (originalWordsArray.length - 1);
-        return returnThis; // save the index position of the last character of a single word
+    while (originalWordsArray[endOfWordIndex] != " ") { // run while loop until reach first blank space
+      endOfWordIndex++;
     }
-      return returnThis;
-    })
-    return returnThis;
+    console.log("endOfWordIndex value: " + endOfWordIndex);
+    return endOfWordIndex;
   }
+
+  //   originalWordsArray.forEach(function(character, index) {
+  //     console.log("endOfWord forEach index value: " + index);
+  //     if (index > startOfWord &&
+  //         originalWordsArray[index] == " ") {
+  //           console.log("endOfWord value: " + (index -1));
+  //           returnThis = (index - 1);
+  //           return returnThis; // save the index position of the last character of a single word
+  //   } else if (index == (originalWordsArray.length - 1)) {
+  //       console.log("endOfWord else value: " + (index -1));
+  //       returnThis = (originalWordsArray.length - 1);
+  //       return returnThis; // save the index position of the last character of a single word
+  //   }
+  //     return returnThis;
+  //   })
+  //   return returnThis;
+  // }
 
   //     if (wordArray[index] == " ") {
   //       console.log('beginningWords: true; ' + ' index: ' + (index + 1));
