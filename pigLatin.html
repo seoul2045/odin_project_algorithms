@@ -24,7 +24,8 @@
     let vowelContinueArray = [];
     let consonantStartArray = [];
     let consonantContinueArray = [];
-    beginningWords(arrayWords);
+    let numberOfWords = countWords(arrayWords); // determine how many words in the array
+    beginningWords(numberOfWords); // begin traversing the array
     return arrayWords;
   }
 // Function find indexes for the start of each new word; 0 is automatically included
@@ -49,31 +50,94 @@
   //   })
   // }
 
-// Function read words and reorganize new string
-  let beginningWords = wordArray => {
-    console.log("beginningWords function called!");
-    let counter = 0;
+// Function determine the number of words based on blank spaces
+  let countWords = wordArray => {
+    let wordCounter = 0;
     wordArray.forEach(function(character, index) {
-      let startWordArray = [0];
-      let locateWordsObj = {
-        start:[]
-      };
-      if (index == 0) {
-        console.log("index == 0");
-        if (vowels.includes(wordArray[0])) {
-          console.log(endOfWord(0));
-          let endIndex = endOfWord(index); // function returns index for end of a word
-          console.log("endIndex value: " + endIndex);
-          wordArray.splice(endIndex, 0, "a", "y");
-          console.log(wordArray);
-        } else if (consonants.includes(wordArray[0])) {
-          endOfWord(index);  // function returns index for end of a word
-      } else if (index > 0) {
+      if (wordArray[index] == " ") {
+        wordCounter++;
+      }
+    })
+    return (wordCounter + 1); // add 1 because final word has no following blank space
+  }
+
+  // Function read words and rewrite array characters
+    let beginningWords = wordCounter => {
+      console.log("beginningWords function called!");
+      let wordArray = originalWordsArray;
+      let counter = 0;
+      let consonantsToAdd = [];
+      wordArray.forEach(function(character, index) {
+        let startWordArray = [0];
+        let locateWordsObj = {
+          start:[]
+        };
+        if (counter == 0) {
+          console.log("counter run: " + (counter + 1) + " of " + wordCounter);
+          if (vowels.includes(wordArray[0])) {
+            console.log(endOfWord(0));
+            let endIndex = endOfWord(index); // function returns index for end of a word
+            console.log("endIndex value: " + endIndex);
+            wordArray.splice(endIndex, 0, "a", "y");
+            console.log(wordArray);
+            counter++;
+          } else if (consonants.includes(wordArray[0])) {
+            consonantsToAdd = countConsonants(0);
+            let endIndex = endOfWord(index);  // function returns index for end of a word
+            wordArray.splice(consonantsToAdd, consonantsToAdd.length); // need to move consonants to the end of the word and add "a", "y"
+            console.log(wordArray); // may need to create another function to read the word again or ...
+            counter++;
+        } else if (counter > 0 &&
+                   counter < wordCounter &&
+                   wordArray[index] == " ") {
+
+            counter++;
+        }
+      } else if (counter == wordCounter) { // this will add characters to the last word of the array
 
       }
-    }
-  })
-}
+    })
+  }
+
+// Function count consonants that appear in a row
+  countConsonants = startIndex => {
+    let index = startIndex;
+    let consonantsIndexList = [];
+    while (originalWordsArray[index] != " " &&
+           consonants.includes(originalWordsArray[index])) {
+             console.log("index: " + index + " contains " + originalWordsArray[index]);
+             consonantsIndexList.push(index);
+             console.log(consonantsIndexList);
+             index++;
+           }
+    return consonantsIndexList;
+  }
+
+// Function read words and rewrite array characters
+//   let beginningWords = wordArray => {
+//     console.log("beginningWords function called!");
+//     let counter = 0;
+//     wordArray.forEach(function(character, index) {
+//       let startWordArray = [0];
+//       let locateWordsObj = {
+//         start:[]
+//       };
+//       if (index == 0) {
+//         console.log("index == 0");
+//         if (vowels.includes(wordArray[0])) {
+//           console.log(endOfWord(0));
+//           let endIndex = endOfWord(index); // function returns index for end of a word
+//           console.log("endIndex value: " + endIndex);
+//           wordArray.splice(endIndex, 0, "a", "y");
+//           console.log(wordArray);
+//         } else if (consonants.includes(wordArray[0])) {
+//           endOfWord(index);  // function returns index for end of a word
+//       } else if (index > 0) {
+//
+//       }
+//     }
+//   })
+// }
 // Function find index for end of a word
   let endOfWord = startOfWord => {
     let endOfWordIndex = startOfWord;
@@ -186,7 +250,7 @@ let runRules = index => {
 //  console.log('array result = ' + consonantStartArray);
 //  console.log('array result = ' + vowelStartArray);
 //  console.log(translate("pig earth"));
-  translate("eat pig earth");
+  translate("trust eat earth");
 </script>
 </body>
 </html>
