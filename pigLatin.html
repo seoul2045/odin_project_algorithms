@@ -84,8 +84,11 @@
           } else if (consonants.includes(wordArray[0])) {
             consonantsToAdd = countConsonants(0);
             let endIndex = endOfWord(index);  // function returns index for end of a word
-            wordArray.splice(consonantsToAdd, consonantsToAdd.length); // need to move consonants to the end of the word and add "a", "y"
-            console.log(wordArray); // may need to create another function to read the word again or ...
+            let splicedConsonants = wordArray.splice(consonantsToAdd, consonantsToAdd.length); // removes consonants
+            console.log(splicedConsonants);
+            wordArray.splice((endIndex - consonantsToAdd.length), 0, splicedConsonants.join(""), "a", "y");
+            // need to move consonants to the end of the word and add "a", "y"
+            console.log(wordArray.join(""));
             counter++;
         } else if (counter > 0 &&
                    counter < wordCounter &&
